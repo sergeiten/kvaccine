@@ -63,3 +63,36 @@ Referer: https://vaccine-map.kakao.com/map2?v=1
 Content-Length: 155
 Accept-Language: en-us
 ```
+
+
+704
+```
+{
+"bottomRight": {
+"x": 126.94269970256032,
+"y": 37.598547654898745
+},
+"onlyLeft": false,
+"order": "latitude",
+"topLeft": {
+"x": 127.05130069829183,
+"y": 37.45484630828301
+}
+}
+```
+
+451
+```
+{
+  "bottomRight": {
+    "x": 126.72223420822512,
+    "y": 37.55519361583503
+  },
+  "onlyLeft": false,
+  "order": "latitude",
+  "topLeft": {
+    "x": 126.83034874177169,
+    "y": 37.41128956164966
+  }
+}
+```

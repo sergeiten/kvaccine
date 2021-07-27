@@ -36,22 +36,37 @@ func main() {
 	locations := map[string][]byte{
 		"seoul": []byte(`
 {
-  "bottomRight": {
-    "x": 127.225871,
-    "y": 37.385768
-  },
-  "onlyLeft": true,
-  "order": "latitude",
-  "topLeft": {
-    "x": 126.630329,
-    "y": 37.672568
-  }
-}`),
+	"bottomRight": {
+		"x": 126.94269970256032,
+		"y": 37.598547654898745
+    },
+	"onlyLeft": true,
+	"order": "latitude",
+	"topLeft": {
+		"x": 127.05130069829183,
+		"y": 37.45484630828301
+	}
+}
+`),
+		"incheon": []byte(`
+{
+	"bottomRight": {
+    	"x": 126.72223420822512,
+    	"y": 37.55519361583503
+  	},
+  	"onlyLeft": true,
+  	"order": "latitude",
+  	"topLeft": {
+		"x": 126.83034874177169,
+		"y": 37.41128956164966
+  	}
+}
+`),
 	}
 
 	timePassed := 0
-	sleep := 1
-	sendMessageAfter := 60
+	sleep := cfg.Sleep
+	notifyAfter := cfg.NotifyAfter
 
 	for {
 		for location, data := range locations {
@@ -86,14 +101,16 @@ func main() {
 			for _, org := range respJson.Organizations {
 				tlg.Logf("%s", org.Address)
 				tlg.Logf("Hospital: %s\nAddress: %s\nHas: %d vaccine left", org.OrgName, org.Address, org.LeftCounts)
+
+				timePassed = 0
 			}
 		}
 
 		timePassed += sleep
-		log.Printf("Sleep for %d minutes\n", sleep)
-		time.Sleep(time.Duration(sleep) * time.Minute)
+		log.Printf("Sleep for %d seconds\n", sleep)
+		time.Sleep(time.Duration(sleep) * time.Second)
 
-		if timePassed >= sendMessageAfter {
+		if timePassed >= notifyAfter {
 			tlg.Logf("There is still no vaccine")
 			timePassed = 0
 		}

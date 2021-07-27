@@ -1,2 +1,4 @@
-telegram-token:
-telegram-chat-id:
+telegram_token:
+telegram_chat_id:
+sleep:
+notify_after:

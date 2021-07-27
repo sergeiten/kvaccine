@@ -1,16 +1,19 @@
 package main
 
 import (
-	"gopkg.in/yaml.v3"
 	"os"
+
+	"gopkg.in/yaml.v3"
 )
 
 type Config struct {
-	TelegramToken  string `yaml:"telegram-token"`
-	TelegramChatID string `yaml:"telegram-chat-id"`
+	TelegramToken  string `yaml:"telegram_token"`
+	TelegramChatID string `yaml:"telegram_chat_id"`
+	Sleep          int    `yaml:"sleep"`
+	NotifyAfter    int    `yaml:"notify_after"`
 }
 
-func NewConfig() (*Config, error){
+func NewConfig() (*Config, error) {
 	config := &Config{}
 
 	file, err := os.Open("config.yml")
