@@ -72,25 +72,29 @@ func main() {
 		for location, data := range locations {
 			req, err := newRequest(API_URL, data)
 			if err != nil {
-				log.Fatalf("failed to create request: %v", err)
+				log.Printf("failed to create request: %v", err)
+				continue
 			}
 
 			resp, err := c.Do(req)
 			if err != nil {
-				log.Fatalf("failed to do request: %v", err)
+				log.Printf("failed to do request: %v", err)
+				continue
 			}
 
 			defer resp.Body.Close()
 
 			dat, err := ioutil.ReadAll(resp.Body)
 			if err != nil {
-				log.Fatalf("failed to read response body: %v", err)
+				log.Printf("failed to read response body: %v", err)
+				continue
 			}
 
 			var respJson response
 			err = json.Unmarshal(dat, &respJson)
 			if err != nil {
-				log.Fatalf("failed to unmarshal json: %v", err)
+				log.Printf("failed to unmarshal json: %v", err)
+				continue
 			}
 
 			if len(respJson.Organizations) == 0 {
