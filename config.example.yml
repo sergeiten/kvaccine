@@ -2,3 +2,19 @@ telegram_token:
 telegram_chat_id:
 sleep:
 notify_after:
+cookie:
+locations:
+  - name:
+    bottom_right:
+      x:
+      y:
+    top_left:
+      x:
+      y:
+  - name:
+    bottom_right:
+      x:
+      y:
+    top_left:
+      x:
+      y:

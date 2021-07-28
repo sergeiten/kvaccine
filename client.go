@@ -6,6 +6,7 @@ import (
 	"math/rand"
 	"net"
 	"net/http"
+	"net/http/cookiejar"
 	"time"
 )
 
@@ -13,19 +14,25 @@ type Stop struct {
 	error
 }
 
-func NewTimeoutClient() *http.Client {
+func NewTimeoutClient() (*http.Client, error) {
+	jar, err := cookiejar.New(nil)
+	if err != nil {
+		return nil, err
+	}
+
 	return &http.Client{
+		Jar: jar,
 		Transport: &http.Transport{
 			TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
 			Dial: (&net.Dialer{
 				Timeout:   30 * time.Second,
 				KeepAlive: 30 * time.Second,
 			}).Dial,
-			TLSHandshakeTimeout:   10 * time.Second,
-			ResponseHeaderTimeout: 10 * time.Second,
+			TLSHandshakeTimeout:   30 * time.Second,
+			ResponseHeaderTimeout: 30 * time.Second,
 			ExpectContinueTimeout: 1 * time.Second,
 		},
-	}
+	}, nil
 }
 
 func Retry(attempts int, sleep time.Duration, f func() (*http.Response, error)) (*http.Response, error) {

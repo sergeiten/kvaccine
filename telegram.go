@@ -18,12 +18,17 @@ type TelegramLogger struct {
 	client *http.Client
 }
 
-func NewTelegramLogger(token string, chatID string) *TelegramLogger {
+func NewTelegramLogger(token string, chatID string) (*TelegramLogger, error) {
+	client, err := NewTimeoutClient()
+	if err != nil {
+		return nil, err
+	}
+
 	return &TelegramLogger{
 		url:    fmt.Sprintf(TELEGRAM_API, token),
 		chatID: chatID,
-		client: NewTimeoutClient(),
-	}
+		client: client,
+	}, nil
 }
 
 func (s *TelegramLogger) Logf(format string, args ...interface{}) {
@@ -54,4 +59,3 @@ func (s *TelegramLogger) Logf(format string, args ...interface{}) {
 		return
 	}
 }
-
