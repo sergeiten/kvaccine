@@ -179,7 +179,6 @@ func (s *app) Run() error {
   	}
 }`, location.BottomRight.X, location.BottomRight.Y, location.TopLeft.X, location.TopLeft.Y))
 
-			log.Printf("data: %s", string(data))
 			req, err := newRequest(LEFT_COUNT_URL, data)
 			if err != nil {
 				log.Printf("failed to create request: %v", err)
