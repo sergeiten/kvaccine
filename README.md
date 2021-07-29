@@ -1,3 +1,7 @@
+# KakaoTalk Vaccine Reservation
+
+In order to detect user who wants to apply for vaccine we need to get user cookies from 잔여백신 tab. We need to use [proxyman](https://proxyman.io/) application to get user cookies. Follow instruction to proper installation proxyman ssl certificate on devices.
+
 ## Getting Organization Detail
 ```bazaar
 curl 'https://vaccine.kakao.com/api/v2/org/org_code/41362390' \
