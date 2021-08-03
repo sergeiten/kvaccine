@@ -218,7 +218,9 @@ func (s *app) Run() error {
 				//s.tlg.Logf("Trying to make reservation")
 				//s.tlg.Logf("Getting organization detail information")
 
-				log.Printf("Hospital: %s\nAddress: %s\nHas: %d vaccine left", org.OrgName, org.Address, org.LeftCounts)
+				log.Printf("Hospital: %s", org.OrgName)
+				log.Printf("Address: %s", org.Address)
+				log.Printf("Has: %d vaccine left", org.LeftCounts)
 				log.Printf("Trying to make reservation")
 				log.Printf("Getting organization detail information")
 
@@ -227,8 +229,6 @@ func (s *app) Run() error {
 					log.Printf("failed to get organization detail information: %v", err)
 					continue
 				}
-
-				log.Printf("orgDetail: %+v", orgDetail)
 
 				vaccineCode := ""
 				for _, left := range orgDetail.Lefts {
@@ -241,8 +241,6 @@ func (s *app) Run() error {
 				if vaccineCode == "" {
 					continue
 				}
-
-				log.Printf("vaccineCode: %s", vaccineCode)
 
 				log.Printf("Accept agreement")
 				_, err = s.agreement()
@@ -258,8 +256,10 @@ func (s *app) Run() error {
 					continue
 				}
 
-				log.Printf("Reservation success")
-				log.Printf("reservation: %+v", reservation)
+				log.Printf("Reservation Success")
+				log.Printf("Reservation Information: %+v", reservation)
+				s.tlg.Logf("Reservation Completed")
+				s.tlg.Logf("%+v", reservation)
 				os.Exit(1)
 			}
 		}
@@ -411,7 +411,7 @@ func (s *app) reservation(vaccineCode string, orgCode string) (*reservationRespo
 	}
 
 	if resp.StatusCode != http.StatusOK {
-		err = errors.New(fmt.Sprintf("failed to make reservation, status: %d, response: %s", resp.StatusCode, string(dat)))
+		err = errors.New(fmt.Sprintf("status: %d, response: %s", resp.StatusCode, string(dat)))
 	}
 
 	return &respJson, err
